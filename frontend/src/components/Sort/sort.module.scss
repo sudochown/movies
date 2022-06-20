@@ -1,0 +1,18 @@
+.root {
+  display: grid;
+  max-width: 90%;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0 auto 20px;
+  grid-auto-flow: column;
+  gap: 10px;
+  text-align: right;
+
+  select {
+    padding: 5px 10px;
+  }
+}
+
+.label {
+  color: #fff;
+}

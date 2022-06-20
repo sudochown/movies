@@ -1,0 +1,61 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  align-items: flex-start;
+}
+
+.moviesListBlock {
+  margin: auto;
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  padding: 6px;
+}
+
+.rightColumn {
+  width: calc(100vw - 400px);
+}
+
+.filterContainer {
+  position: sticky;
+  top: 0;
+  display: block;
+  height: 100vh;
+  background: rgba(0, 0, 0, .2);
+  border-right: 1px solid #dd0d0f;
+  width: 300px;
+  transform: translateX(0);
+  transition: transform .3s
+}
+
+.sidebarClosed {
+  transform: translateX(-260px);
+}
+
+.open {
+  margin-left: auto;
+  width: 40px;
+  height: 100%;
+  cursor: pointer;
+
+  span {
+    width: 40px;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+}
+
+.close {
+  color: #fff;
+  font-size: 20px;
+  padding: 20px;
+  margin-left: auto;
+  text-align: right;
+  cursor: pointer;
+}

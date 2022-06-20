@@ -1,0 +1,12 @@
+.movieBlock {
+  padding-top: 20px;
+  max-width: 900px;
+  display: flex;
+  margin: 0 auto;
+  & img {
+    width: 300px;
+  }
+  & > div {
+    padding-left: 60px;
+  }
+}

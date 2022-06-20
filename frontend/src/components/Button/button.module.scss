@@ -1,0 +1,26 @@
+.buttonContainer {
+  margin-top: auto;
+  padding: 15px;
+  min-width: 100px;
+  cursor: pointer;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  box-shadow: none;
+}
+
+.buttonContainer:hover {
+  background: #dd0d0f;
+}
+
+.buttonPrimary {
+  background-color: black;
+  color: white;
+}
+
+.buttonSecondary {
+  color: #000;
+  background-color: white;
+}

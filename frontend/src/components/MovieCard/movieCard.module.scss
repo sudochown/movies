@@ -1,0 +1,32 @@
+.cardBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 400px;
+  border-radius: 8px;
+  box-shadow: 0 0 14px 4px rgba(0, 0, 0, 0.61);
+  padding: 16px;
+  background-color: #fff;
+
+  & h3 {
+    margin: 10px 0;
+    text-transform: uppercase;
+    & a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+  p {
+    margin: 0 0 10px;
+  }
+  & img {
+    width: 190px;
+    max-height: 270px;
+  }
+  & > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-style: italic;
+  }
+}
