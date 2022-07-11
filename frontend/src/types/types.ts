@@ -4,7 +4,7 @@ export interface MovieType {
   description: string;
   genres: string[];
   logo: string;
-  rate?: number;
+  rating?: number;
   title: string;
   year: string;
   _id: string;
@@ -48,4 +48,11 @@ export enum SortUrlParams {
 export enum PaginationUrlParams {
   page = 'page',
   pageSize = 'limit',
+}
+
+export enum MovieCRUDActions {
+  create = 'create_action',
+  update = 'update_action',
+  delete = 'delete_action',
+  deleteAll = 'delete_all_action',
 }

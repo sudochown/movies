@@ -1,0 +1,107 @@
+{
+  "api": {
+    "prefix": "/v1",
+    "controller": "/movie",
+    "list_action": {
+      "endpoint": "",
+      "method": "get"
+    },
+    "create_action": {
+      "endpoint": "/create",
+      "method": "post"
+    },
+    "update_action": {
+      "endpoint": "/update",
+      "method": "put"
+    },
+    "delete_action": {
+      "endpoint": "/delete",
+      "method": "delete"
+    },
+    "delete_all_action": {
+      "endpoint": "/delete/all",
+      "method": "delete"
+    }
+},
+  "movie": {
+    "attributes": {
+      "title": {
+        "headerName": "title",
+        "type": "string",
+        "editable": true,
+        "validation_rules": [{ "func": "isLength", "args": {"min": 1, "max": 255}, "msg": "Title length should be gt 1 and lte 255" }],
+        "value_processor": ["trim", "escape", "stripLow", "whitelist"]
+      },
+      "logo": {
+        "headerName": "Logo",
+        "type": "string",
+        "editable": true,
+        "validation_rules": [{ "func": "isURL", "msg": "Logo should be valid image external url." }, { "func": "isLength", "args": {"min": 1, "max": 255}, "msg": "Title length should be gt 1 and lte 255"}],
+        "value_processor": ["trim"]
+      },
+      "description": {
+        "field": "description",
+        "headerName": "Description",
+        "editable": true,
+        "validation_rules": [{ "func": "isLength", "args": {"min": 1, "max": 1000}, "msg": "Description length should be gt 1 and lte 1000" }],
+        "value_processor": ["trim", "escape", "stripLow", "whitelist"]
+      },
+      "rating": {
+        "headerName": "Rating",
+        "type": "singleSelect",
+        "filterable": true,
+        "editable": true,
+        "validation_rules": [{ "func": "isInt", "args": {"gt": 0, "lt":  6}, "msg": "Select number from 1 to 5" }],
+        "value_processor": ["trim", "toInt"],
+        "valueOptions": [
+          {"value": 0, "label": "0"},
+          {"value": 1, "label": "1"},
+          {"value": 2, "label": "2"},
+          {"value": 3, "label": "3"},
+          {"value": 4, "label": "4"},
+          {"value": 5, "label": "5"}
+        ]
+      },
+      "year": {
+        "headerName": "year",
+        "type": "date",
+        "editable": true,
+        "filterable": true,
+        "validation_rules": [{"func": "isBefore", "args": "01/01/2023", "msg": "Select year before 2023" }, {"func": "isAfter", "args": "01/01/1900", "msg": "Select year after 1900" }],
+        "value_processor": ["trim", "escape", "stripLow"]
+      },
+      "genres": {
+        "headerName": "Genres",
+        "type": "string",
+        "filterable": true,
+        "editable": true,
+        "validation_rules": [{ "func": "isLength", "args": {"min": 1, "max": 1000}, "msg": "Genres length should be gt 1 and lte 1000" }],
+        "value_processor": ["trim", "escape", "stripLow", "whitelist"]
+      },
+      "urlKey": {
+        "headerName": "urlKey",
+        "type": "string",
+        "editable": true,
+        "validation_rules": [{ "func": "isLength", "args": {"min": 1, "max": 255}, "msg": "Url key length should be gt 1 and lte 255" }, {"func":  "isSlug", "msg": "Url key need to be valid slug."}],
+        "value_processor": ["trim", "escape", "stripLow", "whitelist"]
+      },
+      "cast": {
+        "headerName": "Cast",
+        "editable": true,
+        "validation_rules": [{ "func": "isLength", "args": {"min": 1, "max": 1000}, "msg": "Cast length should be gt 1 and lte 1000" }],
+        "value_processor": ["trim", "escape", "stripLow", "whitelist"]
+      }
+    },
+    "filterable": [
+      "rating",
+      "year",
+      "genres"
+    ],
+    "sortable": [
+      "year",
+      "rating",
+      "title"
+    ]
+  }
+}
+
