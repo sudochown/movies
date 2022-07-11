@@ -28,7 +28,7 @@ export class MoviesService {
    *
    * @param params
    */
-  async list(params: QueryParams): Promise<{ items: Movie[], total: number }> {
+  async list(params: QueryParams): Promise<{ items: Movie[]; total: number }> {
     const filters = {};
     let defaultSortField = MovieProperties.title as string;
     const {
@@ -48,7 +48,9 @@ export class MoviesService {
       .filter((attribute) => !!attribute?.field)
       .forEach((attribute) => {
         if (attribute?.isFilterable && filterParams.includes(attribute.field)) {
-          filters[attribute.field] = { $in: prepareFilterValues(rest[attribute.field]) };
+          filters[attribute.field] = {
+            $in: prepareFilterValues(rest[attribute.field]),
+          };
         }
 
         if (attribute?.isDefaultSortField) {
@@ -57,13 +59,17 @@ export class MoviesService {
       });
 
     return {
-      items: await this.movieModel.find(filters)
-      .sort({[sort_field]: sort_direction === 'asc' ? SortDirection.asc : SortDirection.desc})
-      .limit(limit * page)
-      .skip((page - 1) * limit)
-      .exec(),
-      total: await this.movieModel.estimatedDocumentCount(filters)
-    }
+      items: await this.movieModel
+        .find(filters)
+        .sort({
+          [sort_field]:
+            sort_direction === 'asc' ? SortDirection.asc : SortDirection.desc,
+        })
+        .limit(limit * page)
+        .skip((page - 1) * limit)
+        .exec(),
+      total: await this.movieModel.estimatedDocumentCount(filters),
+    };
   }
 
   /**
@@ -85,17 +91,22 @@ export class MoviesService {
   /**
    * Get movie attributes metadata.
    */
-  async getAttributes(): Promise<{ attributes: AttributesConfig[], options: { [key: string]: any[] } }> {
+  async getAttributes(): Promise<{
+    attributes: AttributesConfig[];
+    options: { [key: string]: any[] };
+  }> {
     const options = {};
     const attributes = await this.attributesConfig.find().exec();
-  
+
     for (const a of attributes) {
       if (a?.[AttributesConfigProperties.isFilterable]) {
-        options[a?.[AttributesConfigProperties.field]]
-          = await this.getAttributeOptions(a?.[AttributesConfigProperties.field] as MovieProperties);
+        options[a?.[AttributesConfigProperties.field]] =
+          await this.getAttributeOptions(
+            a?.[AttributesConfigProperties.field] as MovieProperties,
+          );
       }
     }
-  
+
     return { attributes, options };
   }
 }

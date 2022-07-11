@@ -11,6 +11,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('user')
     .addTag('movies')
+    .addTag('movie')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
       'JWT',

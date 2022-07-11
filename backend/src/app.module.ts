@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { CacheModule, MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MoviesController } from './movies/movies.controller';
@@ -13,10 +13,18 @@ import { MoviesService } from './movies/movies.service';
 import { UserService } from './user/user.service';
 import { UserController } from './user/user.controller';
 import { User, UserSchema } from './user/schema/user.schema';
+import { MovieModule } from './movie/movie.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'mongodb',
+      url: process.env.MONGO_CLUSTER,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true,
+    }),
     MongooseModule.forRoot(process.env.MONGO_CLUSTER),
     MongooseModule.forFeature([
       { name: Movie.name, schema: MovieSchema },
@@ -24,6 +32,11 @@ import { User, UserSchema } from './user/schema/user.schema';
     ]),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     JwtModule.register({ secret: process.env.JWT_SECRET }),
+    CacheModule.register({
+      ttl: 5,
+      max: 10,
+    }),
+    MovieModule,
   ],
   controllers: [MoviesController, UserController],
   providers: [MoviesService, UserService],
